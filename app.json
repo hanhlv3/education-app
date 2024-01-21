@@ -2,6 +2,7 @@
   "expo": {
     "name": "codebox",
     "slug": "codebox",
+    "scheme": "codebox",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,16 +16,30 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": ["com.googleusercontent.apps.808363992443-os4lhsl3jg66go41tacf2ca73m8qf9ae"]
+          }
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.hanhdev.codebox"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b6a19e2e-bcd2-4c3c-83cc-2391f136cb9c"
+      }
+    },
+    "owner": "hanhdev"
   }
 }
