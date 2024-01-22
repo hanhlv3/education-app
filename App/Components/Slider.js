@@ -1,8 +1,7 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native'
 import React, { useEffect, useState, useRef } from 'react'
 import GlobalApi from '../Shared/GlobalApi'
 import { FlatList } from 'react-native'
-import { Dimensions } from 'react-native'
 
 export default function Slider() {
     const [sliders, setSliders] = useState([])

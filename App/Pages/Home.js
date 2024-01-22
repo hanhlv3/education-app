@@ -9,6 +9,7 @@ import GlobalApi from '../Shared/GlobalApi'
 import WelcomeHeader from '../Components/WelcomeHeader'
 import SeachBar from '../Components/SeachBar'
 import Slider from '../Components/Slider'
+import VideoCourseList from '../Components/VideoCourseList'
 export default function Home() {
 
     const { user, setUser } = useContext(AuthContext)
@@ -20,6 +21,7 @@ export default function Home() {
             <WelcomeHeader />
             <SeachBar />
             <Slider />
+            <VideoCourseList />
         </View>
     )
 }
