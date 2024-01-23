@@ -8,7 +8,10 @@ const getSlider = () => api.get('/sliders?populate=*')
 
 const getVideoCourseList = () => api.get('/video-courses?populate=*')
 
+const getCourseByType = (courseType) => api.get(`course-lists?filters[type][$eq]=${courseType}&populate=*`)
+
 export default {
     getSlider,
     getVideoCourseList,
+    getCourseByType,
 }

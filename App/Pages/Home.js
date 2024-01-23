@@ -1,28 +1,23 @@
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native'
 import { useContext, useEffect } from 'react'
 
 import Colors from '../Shared/Colors'
-
-import { AuthContext } from '../Context/AuthContext'
-import GlobalApi from '../Shared/GlobalApi'
 
 import WelcomeHeader from '../Components/WelcomeHeader'
 import SeachBar from '../Components/SeachBar'
 import Slider from '../Components/Slider'
 import VideoCourseList from '../Components/VideoCourseList'
+import CourseList from '../Components/CourseList'
 export default function Home() {
-
-    const { user, setUser } = useContext(AuthContext)
-
-   
-
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <WelcomeHeader />
             <SeachBar />
             <Slider />
             <VideoCourseList />
-        </View>
+            <CourseList courseType={'basic'} />
+            <CourseList courseType={'advance'} />
+        </ScrollView>
     )
 }
 
