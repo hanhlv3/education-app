@@ -8,28 +8,31 @@ import {
     TouchableOpacity
 } from 'react-native'
 import { ScrollView } from 'react-native-virtualized-view'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRoute } from '@react-navigation/native'
-import { Ionicons, EvilIcons, Feather } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import Colors from '../Shared/Colors'
 import CourseContent from '../Components/CourseContent'
+import BackScreen from '../Components/BackScreen'
 
 export default function CourseDetails() {
+    const navigation = useNavigation()
     const param = useRoute().params
     const [course, setCourse] = useState(null)
+
     useEffect(() => {
         setCourse(param.course)
     }, [])
 
-    const navigation = useNavigation()
-
     const TopicItem = ({ topic }) => {
         return (
-            <View style={styles.courseTopic}>
+            <TouchableOpacity
+                style={styles.courseTopic}
+                onPress={() => navigation.navigate('course-chapter', { chapter: topic })}
+            >
                 <View style={styles.disPlayFelexRow}>
                     <Text style={styles.topicNumber}>
-                        {topic.item.numberTopic}
+                        {topic.item.numberTopic <10 ? `0${topic.item.numberTopic}`: topic.item.numberTopic }
                     </Text>
                     <Text style={styles.topicName}>{topic.item.Topic}</Text>
                 </View>
@@ -37,22 +40,13 @@ export default function CourseDetails() {
                     style={{ width: 24, height: 24 }}
                     source={require('../Assets/Images/runButton.jpg')}
                 />
-            </View>
+            </TouchableOpacity>
         )
     }
 
     return (
         <ScrollView style={styles.container}>
-            <View style={styles.backContainer}>
-                <Ionicons
-                    name="arrow-back-sharp"
-                    size={24}
-                    color="black"
-                    onPress={() => navigation.goBack()}
-                />
-
-                <Feather name="more-vertical" size={24} color="black" />
-            </View>
+            <BackScreen />
             <View style={{ marginTop: 20, marginBottom: 10 }}>
                 <Text style={styles.courseName}>Basic HTML</Text>
                 <Text style={styles.author}>Author</Text>
@@ -60,7 +54,7 @@ export default function CourseDetails() {
             <View style={styles.imageContainer}>
                 <Image style={styles.image} source={{ uri: course?.image }} />
             </View>
-            <CourseContent course={course} />
+            <CourseContent desc={course?.description} />
             <View style={{ marginTop: 20, marginBottom: 10 }}>
                 <Text style={styles.titleContent}>Course Content</Text>
             </View>
@@ -136,7 +130,6 @@ const styles = StyleSheet.create({
         lineHeight: 30.26,
         color: 'gray',
         marginRight: 10,
-        fontFamily: 'Inter_700Bold'
     },
     topicName: {
         fontSize: 17,

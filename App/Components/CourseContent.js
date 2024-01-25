@@ -1,13 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-export default function CourseContent({ course }) {
+export default function CourseContent({ desc, title }) {
     return (
         <View>
-            <Text style={styles.courseDescTitle}>About Course</Text>
-            <Text style={styles.courseDesc}>
-                {course?.description}
-            </Text>
+            {title ? (
+                <Text style={styles.courseDescTitle}>{title}</Text>
+            ) : (
+                <Text style={styles.courseDescTitle}>About Course</Text>
+            )}
+            <Text style={styles.courseDesc}>{desc}</Text>
         </View>
     )
 }
@@ -23,5 +25,5 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '400',
         lineHeight: 16
-    },
+    }
 })

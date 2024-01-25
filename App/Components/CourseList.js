@@ -24,7 +24,7 @@ export default function CourseList({ courseType }) {
 
     const getCourses = async (type) => {
         const response = (await GlobalApi.getCourseByType(type)).data
-
+    
         const result = response.data.map((item) => ({
             id: item.id,
             name: item.attributes.name,
