@@ -10,6 +10,7 @@ import {
 import { useState, useEffect, useRef } from 'react'
 import { useRoute } from '@react-navigation/native'
 import { AntDesign } from '@expo/vector-icons'
+import * as Progress from 'react-native-progress';
 import CourseContent from '../Components/CourseContent'
 import Colors from '../Shared/Colors'
 import BackScreen from '../Components/BackScreen'
@@ -19,22 +20,31 @@ export default function CourseChapter() {
     const [chapter, setChapter] = useState([])
     const chapterRef = useRef()
 
+    const [process, setProcess] = useState(0)
+
     const [isRun, setIsRun] = useState(false)
+    const [isSuccess, setIsSuccess] = useState(false)
 
     const [currentChapter, setCurrentChapter] = useState(0)
     const moveNextChapter = (index) => {
-        if (index === chapter.length - 1) return
-        setIsRun(false)
+        if (index === chapter.length - 1) {
+            isSuccess ? setProcess(1) :  setProcess((index + 1)/chapter.length) 
+            return 
+        }
+        isSuccess ? setProcess(1) :  setProcess((index + 1)/chapter.length) 
         setCurrentChapter(index + 1)
+        setIsRun(false)
         chapterRef.current?.scrollToIndex({
             index: currentChapter,
             animated: true
-        })
+        })  
     }
 
     useEffect(() => {
-        setChapter(param.chapter.item.Content)
-        console.log(param.chapter.item.Content)
+        setChapter(param.chapter.item.Content)     
+        const isSuccess = param.chapter.item.success   
+        setIsSuccess(isSuccess)
+        if (isSuccess) setProcess(1) 
     }, [])
 
     const ChapterItem = (item, index) => (
@@ -79,8 +89,7 @@ export default function CourseChapter() {
     return (
         <View style={styles.container}>
             <BackScreen />
-            <View style={styles.process}></View>
-            {/* <CourseContent desc={} title={}/> */}
+            <Progress.Bar progress={process} width={null} color={Colors.primary} />
             <FlatList
                 data={chapter}
                 horizontal={true}
@@ -122,6 +131,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         width: Dimensions.get('screen').width * 0.87,
         marginRight: 15,
+        marginTop: 12,
         padding: 10
     },
     input: {

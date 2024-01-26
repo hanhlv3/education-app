@@ -16,7 +16,7 @@ import Colors from '../Shared/Colors'
 import CourseContent from '../Components/CourseContent'
 import BackScreen from '../Components/BackScreen'
 
-export default function CourseDetails() {
+export default function CourseVideo() {
     const navigation = useNavigation()
     const param = useRoute().params
     const [course, setCourse] = useState(null)
@@ -26,14 +26,14 @@ export default function CourseDetails() {
     }, [])
 
     const TopicItem = ({ topic }) => {
-        console.log('topic', topic.item.success)
+        console.log('topic', topic)
         const success = topic.item.success
 
         return (
             <TouchableOpacity
                 style={styles.courseTopic}
                 onPress={() =>
-                    navigation.navigate('course-chapter', { chapter: topic })
+                    navigation.navigate('play-video', { chapter: topic })
                 }
             >
                 <View style={styles.disPlayFelexRow}>
@@ -44,13 +44,13 @@ export default function CourseDetails() {
                         />
                     ) : (
                         <Text style={styles.topicNumber}>
-                            {topic.item.numberTopic < 10
-                                ? `0${topic.item.numberTopic}`
-                                : topic.item.numberTopic}
+                            {topic.item.chapter < 10
+                                ? `0${topic.item.chapter}`
+                                : topic.item.chapter}
                         </Text>
                     )}
 
-                    <Text style={styles.topicName}>{topic.item.Topic}</Text>
+                    <Text style={styles.topicName}>{topic.item.name}</Text>
                 </View>
                 <Image
                     style={{ width: 24, height: 24 }}
@@ -65,7 +65,7 @@ export default function CourseDetails() {
         <ScrollView style={styles.container}>
             <BackScreen />
             <View style={{ marginTop: 20, marginBottom: 10 }}>
-                <Text style={styles.courseName}>{course?.name}</Text>
+                <Text style={styles.courseName}>{course?.title}</Text>
                 <Text style={styles.author}>Author</Text>
             </View>
             <View style={styles.imageContainer}>
@@ -73,11 +73,11 @@ export default function CourseDetails() {
             </View>
             <CourseContent desc={course?.description} />
             <View style={{ marginTop: 20, marginBottom: 10 }}>
-                <Text style={styles.titleContent}>{course?.description}</Text>
+                <Text style={styles.titleContent}>Course Content</Text>
             </View>
 
             <FlatList
-                data={course?.Topic}
+                data={course?.videoTopic}
                 renderItem={(item) => <TopicItem topic={item} />}
                 keyExtractor={(item, inex) => item.id}
             />

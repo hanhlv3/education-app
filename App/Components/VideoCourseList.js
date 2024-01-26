@@ -4,14 +4,18 @@ import {
     View,
     FlatList,
     Image,
-    Dimensions
+    Dimensions,
+    TouchableOpacity
 } from 'react-native'
 import { useState, useEffect } from 'react'
+import { useNavigation } from '@react-navigation/native'
 
 import GlobalApi from '../Shared/GlobalApi'
 
 export default function VideoCourseList() {
     const [videoList, setVideoList] = useState([])
+
+    const navigation = useNavigation()
 
     useEffect(() => {
         fetchCourseList()
@@ -30,11 +34,15 @@ export default function VideoCourseList() {
         setVideoList(result)
     }
 
+    const onPressCourse = (course) => {
+        navigation.navigate('course-video', {course: course})
+    }
+
     const CourseItem = ({ item }) => {
         return (
-            <View>
+            <TouchableOpacity onPress={() => onPressCourse(item) }>
                 <Image style={styles.coureImage} source={{ uri: item.image }} />
-            </View>
+            </TouchableOpacity>
         )
     }
 
